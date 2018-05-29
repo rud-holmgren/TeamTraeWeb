@@ -1,0 +1,49 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="row">
+    <div class="col-12 col-md-6">
+        <div id="themap" style="height:380px;"></div>
+    </div>
+    <div class="col-12 col-md-6">
+        <img class="w-100 py-2" src="api/Photo/@Model.Photos.First().Id" />
+    </div>
+</div>
+<div class="row">
+    @foreach (var p in Model.Photos)
+    {
+        <div class="col-12 col-md-6">
+            <img class="w-100 py-2" src="api/Photo/@p.Id" />
+        </div>
+    }
+</div>
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        $(function () {
+
+            var mymap = L.map('themap', { center: [@Model.GetPhotoCoord(Model.Photos.First())], zoom: 12 });
+
+            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                maxZoom: 18,
+                id: 'mapbox.streets',
+                accessToken: 'pk.eyJ1IjoicnVkLWhvbG1ncmVuIiwiYSI6ImNqaGhwbmsydjA3cDkzNnQzODhnY2FxeHQifQ.wPVcl6jc8IalKii6QE0fLg'
+            }).addTo(mymap);
+
+            @foreach (var p in Model.Photos)
+            {
+                @Html.Raw("L.circle([" + Model.GetPhotoCoord(p) + "], { 'radius': 100 }).addTo(mymap);\r\n");
+            }
+
+            var marker = L.marker([@Model.GetPhotoCoord(Model.Photos.First())]).addTo(mymap);
+        });
+
+
+    </script>
+}

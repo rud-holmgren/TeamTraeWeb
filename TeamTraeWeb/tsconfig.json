@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "removeComments": false,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "module": "commonjs",
+    "target": "es2017"
+  },
+  "include": [ "Script/*.ts"]
+}

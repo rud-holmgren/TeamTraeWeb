@@ -1,0 +1,17 @@
+﻿
+body {
+    background-image: url('../images/garden-bg.png');
+    background-repeat: repeat-y;
+    background-size: 60px;
+}
+
+#right-border {
+    background-image: url('../images/garden-bg-r.png');
+    background-repeat: repeat-y;
+    background-size: 60px;
+    background-position-x: right;
+    width: 70px;
+    position: absolute;
+    right: 0px;
+    height: 100vh;
+}

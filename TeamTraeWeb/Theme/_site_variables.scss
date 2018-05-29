@@ -1,0 +1,47 @@
+/*!
+ *  Do NOT edit theme.css
+ *
+ *  Do your styling in the Theme folder.
+ */
+
+$kkdarkgray:  #EFEFEF;
+$kkgray:      #526270;
+$kklightgray: #FFFFFF;
+$kkorange:    #EF5F30;
+$kkblue:      #2F3F54;
+$kklightblue: #405872;
+$kkdarkblue:  #222B3F;
+
+$blue:    $kkblue;
+$orange:  $kkorange;
+$green:   $kkdarkblue;
+$cyan:    $kklightblue;
+
+$primary: $kkorange;
+$secondary: $kkblue;
+$success: #21bc5a;
+$info: $kklightblue;
+$warning: #f0ad4e;
+$danger: #d9534f;
+$light: $kklightgray;
+$dark: $kkdarkblue;
+
+// Body
+
+$body-color:        $kkgray;
+$body-bg:           $kkdarkgray;
+
+// Progress
+
+$progress-height: 30px;
+$progress-border-radius: 15px;
+
+// Card
+
+// $card-border-color: $primary;
+$card-border-radius: 0px;
+
+// Font(s)
+
+$web-font-path: "../fonts/tondo/Tondo.css";
+$font-family-sans-serif:  Tondo, Arial, sans-serif;
