@@ -17,6 +17,7 @@ using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.Processing.Transforms;
 using Microsoft.Extensions.DependencyInjection;
+using System.Globalization;
 
 namespace TeamTraeWeb.Controllers
 {
@@ -88,6 +89,8 @@ namespace TeamTraeWeb.Controllers
             public double Latitude { get; set; }
             public double Longitude { get; set; }
 
+            public DateTime Timestamp { get; set; }
+
             static double ToDeg(ExifValue val)
             {
                 var parts = val.Value as SixLabors.ImageSharp.Primitives.Rational[];
@@ -99,10 +102,15 @@ namespace TeamTraeWeb.Controllers
                 var lat = metaData.ExifProfile.Values.FirstOrDefault(v => v.Tag == ExifTag.GPSLatitude);
                 var lng = metaData.ExifProfile.Values.FirstOrDefault(v => v.Tag == ExifTag.GPSLongitude);
 
+                var dte = metaData.ExifProfile.Values.FirstOrDefault(v => v.Tag == ExifTag.DateTime);
+                var strval = dte.Value.ToString();
+                strval = strval.Substring(0, 10).Replace(":", "-") + strval.Substring(10);
+
                 return new GeoLoc()
                 {
                     Latitude = ToDeg(lat),
-                    Longitude = ToDeg(lng)
+                    Longitude = ToDeg(lng),
+                    Timestamp = DateTime.Parse(strval)
                 };
             }
 
@@ -165,12 +173,12 @@ namespace TeamTraeWeb.Controllers
 
             var photodata = Convert.FromBase64String(b64photo);
             var webphoto = RotateAndScale(photodata, out GeoLoc loc);
-            var tnow = DateTime.Now;
+            var tnow = loc?.Timestamp ?? DateTime.Now;
             var isKeyFrame = SetAsKeyFrame(tnow);
 
             TTPhoto photo = new TTPhoto()
             {
-                Id = Guid.NewGuid().ToString(),
+                Id = tnow.ToString("yyyy_MM_dd_HH_mm_ss_", CultureInfo.InvariantCulture) + Guid.NewGuid().ToString(),
                 Timestamp = tnow,
                 // PhotoData = b64photo,
                 LocationLat = loc?.Latitude ?? 0.0,
