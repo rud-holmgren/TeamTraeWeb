@@ -44,7 +44,11 @@ namespace TeamTraeWeb.Pages
         {
             var client = GetDocClient();
             var documentUri = UriFactory.CreateDocumentCollectionUri("TeamTrae", "Photos");
-            Photos = await client.CreateDocumentQuery<TTPhoto>(documentUri, "select P.Id, P.LocationLong, P.LocationLat, P.IsKeyFrame from Photos as P where P.IsKeyFrame=true order by P.Timestamp desc").ToAsyncEnumerable().ToArray();
+
+            var firstPhoto = await client.CreateDocumentQuery<TTPhoto>(documentUri, "select top 1 P.Id, P.LocationLong, P.LocationLat, P.IsKeyFrame from Photos as P order by P.Timestamp desc").ToAsyncEnumerable().ToArray();
+            var keyFrames = await client.CreateDocumentQuery<TTPhoto>(documentUri, "select P.Id, P.LocationLong, P.LocationLat, P.IsKeyFrame from Photos as P where P.IsKeyFrame=true order by P.Timestamp desc").ToAsyncEnumerable().ToArray();
+
+            Photos = firstPhoto.Concat(keyFrames).ToArray();
 
             return Page();
         }

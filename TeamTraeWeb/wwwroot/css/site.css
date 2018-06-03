@@ -9670,6 +9670,7 @@ body {
   background-repeat: repeat-y;
   -webkit-background-size: 60px 60px;
           background-size: 60px;
+  overflow-y: hidden;
 }
 
 #right-border {

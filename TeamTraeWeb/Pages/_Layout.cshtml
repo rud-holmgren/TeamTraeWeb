@@ -15,16 +15,19 @@
     </environment>
 </head>
 <body>
-    <div id="right-border">
-
+    <div id="right-border" style="z-index: -1">
     </div>
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2018 - TTTTT</p>
-        </footer>
+    <div style="width:100%;overflow-y:scroll; height: 100vh">
+        <div class="container body-content">
+            <img src="~/images/logo.png" style="width:100%" />
+
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; 2018 - TeamTræ</p>
+            </footer>
+        </div>
     </div>
 
     <script src="~/js/polyfill.min.js" asp-append-version="true"></script>
@@ -43,7 +46,7 @@
                 setTimeout(adjustRightBg, 1000);
             }
 
-            adjustRightBg();
+            // adjustRightBg();
         });
     </script>
 
