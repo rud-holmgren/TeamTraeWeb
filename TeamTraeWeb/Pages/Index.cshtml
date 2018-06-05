@@ -9,14 +9,14 @@
         <div id="themap" style="height:295px;" class="my-2"></div>
     </div>
     <div class="col-12 col-md-6">
-        <img class="w-100 py-2" src="api/Photo/@Model.Photos.First().Id" />
+        <img class="w-100 py-2" src="https://teamtrae.blob.core.windows.net/scaled/@Model.Photos.First().Id" />
     </div>
 </div>
 <div class="row">
     @foreach (var p in Model.Photos.Skip(1))
     {
         <div class="col-12 col-md-6">
-            <img class="w-100 py-2" src="api/Photo/@p.Id" />
+            <img class="w-100 py-2" src="https://teamtrae.blob.core.windows.net/scaled/@p.Id" />
         </div>
     }
 </div>

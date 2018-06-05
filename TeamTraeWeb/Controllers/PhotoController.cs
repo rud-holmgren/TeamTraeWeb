@@ -146,6 +146,7 @@ namespace TeamTraeWeb.Controllers
             var bclient = storage.CreateCloudBlobClient();
             var container = bclient.GetContainerReference(containerName);
             var blob = container.GetBlockBlobReference(id);
+            blob.Properties.ContentType = "image/jpeg";
             return blob.UploadFromByteArrayAsync(data, 0, data.Length);
         }
 
