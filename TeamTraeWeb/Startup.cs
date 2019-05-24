@@ -17,6 +17,9 @@ namespace TeamTraeWeb
 
     public class Startup
     {
+        // https://goo.gl/1wNQ8e
+        // https://www.the-qrcode-generator.com/
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;

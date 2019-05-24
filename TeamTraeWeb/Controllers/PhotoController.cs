@@ -18,6 +18,7 @@ using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.Processing.Transforms;
 using Microsoft.Extensions.DependencyInjection;
 using System.Globalization;
+using Microsoft.Azure.Documents;
 
 namespace TeamTraeWeb.Controllers
 {
@@ -67,6 +68,7 @@ namespace TeamTraeWeb.Controllers
         public class TTPhoto
         {
             public string Id { get; set; }
+            public string PartitionKey { get; set; } = "ThePartition";
             public DateTime Timestamp { get; set; }
             public double LocationLong { get; set; }
             public double LocationLat { get; set; }
@@ -79,7 +81,7 @@ namespace TeamTraeWeb.Controllers
         {
             var client = GetDocClient();
             var documentUri = UriFactory.CreateDocumentCollectionUri("TeamTrae", "Photos");
-            var query = client.CreateDocumentQuery<TTPhoto>(documentUri, "select top 1 P.Timestamp from Photos as P where P.IsKeyFrame=true order by P.Timestamp desc").AsEnumerable().FirstOrDefault();
+            var query = client.CreateDocumentQuery<TTPhoto>(documentUri, "select top 1 P.Timestamp from Photos as P where P.IsKeyFrame=true order by P.Timestamp desc", new FeedOptions() { PartitionKey = new PartitionKey("ThePartition") }).AsEnumerable().FirstOrDefault();
 
             return query == null || (photoTime - query.Timestamp).TotalMinutes > 10;
         }

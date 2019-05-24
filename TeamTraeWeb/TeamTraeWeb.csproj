@@ -6,6 +6,7 @@
     <PropertyGroup>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>
+    <UserSecretsId>faf900bd-390b-4a26-a3b4-aabc2589fc47</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
